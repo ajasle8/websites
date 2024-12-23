@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run a Simple Website on Chromebook</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1, h2 {
+            color: #0056b3;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+        }
+        code {
+            color: #d6336c;
+            font-weight: bold;
+        }
+        .step {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Run a Simple Website on a Chromebook with Linux Enabled</h1>
+
+    <div class="step">
+        <h2>Step 1: Enable Linux (if not already done)</h2>
+        <ul>
+            <li>Open <strong>Settings</strong> on your Chromebook.</li>
+            <li>Go to <strong>Advanced → Developers</strong>.</li>
+            <li>Enable <strong>Linux Development Environment</strong> (if it isn’t already enabled). This will install Linux and open a terminal.</li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <h2>Step 2: Install Python</h2>
+        <ol>
+            <li>Open the Linux terminal on your Chromebook.</li>
+            <li>Check if Python is installed:
+                <pre><code>python3 --version</code></pre>
+            </li>
+            <li>If Python is not installed, install it using:
+                <pre><code>sudo apt update
+sudo apt install python3</code></pre>
+            </li>
+        </ol>
+    </div>
+
+    <div class="step">
+        <h2>Step 3: Create Your Server Script</h2>
+        <ol>
+            <li>In the terminal, create a new folder for your project:
+                <pre><code>mkdir my_website
+cd my_website</code></pre>
+            </li>
+            <li>Create the <code>simple_server.py</code> file using a text editor like <code>nano</code>:
+                <pre><code>nano simple_server.py</code></pre>
+            </li>
+            <li>Copy and paste this code into the file:
+                <pre><code>import http.server
+import socketserver
+
+PORT = 8000
+
+Handler = http.server.SimpleHTTPRequestHandler
+
+with socketserver.TCPServer(("", PORT), Handler) as httpd:
+    print(f"Serving at http://127.0.0.1:{PORT}")
+    httpd.serve_forever()</code></pre>
+            </li>
+            <li>Save the file (press <code>Ctrl+O</code>, then <code>Enter</code>) and exit the editor (press <code>Ctrl+X</code>).</li>
+        </ol>
+    </div>
+
+    <div class="step">
+        <h2>Step 4: Create Your HTML File</h2>
+        <ol>
+            <li>Create an <code>index.html</code> file in the same folder:
+                <pre><code>nano index.html</code></pre>
+            </li>
+            <li>Add the following content:
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Simple Website&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to My Simple Website!&lt;/h1&gt;
+    &lt;p&gt;This is served using Python on a Chromebook.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </li>
+            <li>Save and exit the editor.</li>
+        </ol>
+    </div>
+
+    <div class="step">
+        <h2>Step 5: Run the Server</h2>
+        <ol>
+            <li>Run the server:
+                <pre><code>python3 simple_server.py</code></pre>
+            </li>
+            <li>Open a web browser and go to:
+                <pre><code>http://127.0.0.1:8000</code></pre>
+            </li>
+            <li>You should see your website!</li>
+        </ol>
+    </div>
+
+    <div class="step">
+        <h2>Bonus: Keep Your Server Running</h2>
+        <ol>
+            <li>If you want the server to keep running even after closing the terminal, use <code>nohup</code>:
+                <pre><code>nohup python3 simple_server.py &</code></pre>
+            </li>
+            <li>This will run the server in the background. To stop it, find its process ID:
+                <pre><code>ps aux | grep simple_server.py</code></pre>
+            </li>
+            <li>And then kill it:
+                <pre><code>kill &lt;PROCESS_ID&gt;</code></pre>
+            </li>
+        </ol>
+    </div>
+</body>
+</html>
