@@ -1,1 +1,6 @@
+this is the code folder copy this folder into your linux folder on your chromebook to start the site 
+enter this
+
+nohup python3 simple_server.py &
+
 
